@@ -14,11 +14,11 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 //ArrayAdapter per mostrar els elements a la ListView
-public class ArrayAdapter extends BaseAdapter {
+public class CommentListArrayAdapter extends BaseAdapter {
     private final Context context;
-    private final List<Object> llista;
+    private final List<Comment> llista;
 
-    public ArrayAdapter(Context context, List<Object> llista) {
+    public CommentListArrayAdapter(Context context, List<Comment> llista) {
         this.context = context;
         this.llista = llista;
     }
@@ -41,14 +41,16 @@ public class ArrayAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View view, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(R.layout.llista, null, true);
+        View rowView = inflater.inflate(R.layout.llistacomments, null, true);
         //Operem cada fila
-        TextView textViewNom = (TextView) rowView.findViewById(R.id.nom);
-        ImageView imageView=(ImageView) rowView.findViewById(R.id.avatar);
-        Object usuari = llista.get(position);
-        textViewNom.setText("String");
-        Picasso.get().load(Uri.parse(usuari.toString())).into(imageView);
+        TextView textViewUser = (TextView) rowView.findViewById(R.id.user);
+        TextView textViewMessage = (TextView) rowView.findViewById(R.id.message);
+        Comment comment = llista.get(position);
+        textViewUser.setText(comment.getUser());
+        textViewMessage.setText(comment.getMessage());
         return rowView;
     }
 }
+
+
 

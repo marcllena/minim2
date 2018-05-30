@@ -11,7 +11,7 @@ public class Globals {
     private static Globals instance;
 
     // Global variables
-    public static String API_URL="https://api.github.com";
+    public static String API_URL="http://api.dsamola.tk";
     ClientAPI clientRetrofit;
 
 
