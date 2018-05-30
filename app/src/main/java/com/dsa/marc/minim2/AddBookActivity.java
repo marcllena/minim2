@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import java.io.Serializable;
 import java.util.List;
@@ -17,11 +18,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class AddBookActivity extends AppCompatActivity {
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_book);
+        progressBar=(ProgressBar) findViewById(R.id.progressBar);
+        progressBar.setVisibility(ProgressBar.INVISIBLE);
     }
 
     public void afagirLlibre_Click(View view){
@@ -48,6 +52,7 @@ public class AddBookActivity extends AppCompatActivity {
         llibre.setTitle(titol);
         llibre.setAuthor(autor);
         llibre.setDescription(descripcio);
+        progressBar.setVisibility(ProgressBar.VISIBLE);
         afagirLlibre(llibre);
     }
 
@@ -58,6 +63,7 @@ public class AddBookActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<String> call, Response<String> resposta) {
                 if (resposta.isSuccessful()) {
+                    progressBar.setVisibility(ProgressBar.INVISIBLE);
                     AlertDialog.Builder dlgAlert = new AlertDialog.Builder(AddBookActivity.this);
                     dlgAlert.setMessage("Llibre afagit correctament");
                     dlgAlert.setTitle("Operació realitzada");
@@ -69,6 +75,7 @@ public class AddBookActivity extends AppCompatActivity {
                     dlgAlert.setCancelable(true);
                     dlgAlert.create().show();
                 } else if(resposta.code()==204){
+                    progressBar.setVisibility(ProgressBar.INVISIBLE);
                     AlertDialog.Builder dlgAlert = new AlertDialog.Builder(AddBookActivity.this);
                     dlgAlert.setMessage("No s'ha pogut afagir el llibre");
                     dlgAlert.setTitle("Error");
